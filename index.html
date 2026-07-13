@@ -1,0 +1,2185 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Single-file static site. No framework, no build step.
+         Images live in assets/ and each degrades to a typographic
+         placeholder rather than a broken-image icon if it fails to load. -->
+
+    <title>
+      Rahul Prajapati | Full Stack Developer &amp; System Design — Go, Python,
+      TypeScript
+    </title>
+    <meta
+      name="description"
+      content="Full stack developer and system designer. I build marketplaces, e-commerce platforms, booking systems, internal portals and the backends behind them — Go, Python, TypeScript, Next.js, PostgreSQL. Available for freelance projects."
+    />
+    <meta name="author" content="Rahul Prajapati" />
+    <link rel="canonical" href="https://roldex.me/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://roldex.me/" />
+    <meta
+      property="og:title"
+      content="Rahul Prajapati | Full Stack Developer &amp; System Design"
+    />
+    <meta
+      property="og:description"
+      content="I take ideas from 'nice thought' to a working product people actually use. Solid backends, clean APIs, straightforward UIs."
+    />
+    <meta property="og:image" content="https://roldex.me/assets/og.png" />
+    <meta property="og:image:width" content="1408" />
+    <meta property="og:image:height" content="768" />
+    <meta
+      property="og:image:alt"
+      content="Rahul Prajapati — Full Stack Developer &amp; System Design"
+    />
+    <meta property="og:site_name" content="Rahul Prajapati" />
+    <meta property="og:locale" content="en_IN" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Rahul Prajapati | Full Stack Developer &amp; System Design"
+    />
+    <meta
+      name="twitter:description"
+      content="I take ideas from 'nice thought' to a working product people actually use. Solid backends, clean APIs, straightforward UIs."
+    />
+    <meta name="twitter:image" content="https://roldex.me/assets/og.png" />
+
+    <meta name="theme-color" content="#121212" />
+    <link rel="icon" href="assets/title_icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap"
+      onload="this.rel = 'stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap"
+      />
+    </noscript>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HZG4YXVRWQ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HZG4YXVRWQ");
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://roldex.me/#rahul",
+            "name": "Rahul Prajapati",
+            "url": "https://roldex.me/",
+            "email": "roldexstark@gmail.com",
+            "jobTitle": "Full Stack Developer",
+            "description": "Full stack developer focused on solid backends, clean APIs and straightforward UIs. Go, Python, TypeScript, Next.js, PostgreSQL, system design.",
+            "knowsAbout": [
+              "System Design",
+              "Go",
+              "Python",
+              "TypeScript",
+              "Next.js",
+              "React",
+              "Node.js",
+              "PostgreSQL",
+              "Redis",
+              "Docker",
+              "AWS",
+              "Android Development"
+            ],
+            "address": { "@type": "PostalAddress", "addressCountry": "IN" },
+            "alumniOf": {
+              "@type": "CollegeOrUniversity",
+              "name": "ITM Gwalior"
+            },
+            "sameAs": [
+              "https://www.linkedin.com/in/rahulprajapati19/",
+              "https://www.instagram.com/roldexstark/"
+            ]
+          },
+          {
+            "@type": "ProfessionalService",
+            "name": "Rahul Prajapati — Web & Systems Development",
+            "provider": { "@id": "https://roldex.me/#rahul" },
+            "areaServed": "Worldwide",
+            "description": "Design and delivery of production websites, internal management portals and backend systems.",
+            "knowsLanguage": ["English", "Hindi", "Bengali"]
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      /* ── DESIGN TOKENS ───────────────────────────────────────── */
+      :root {
+        --yellow: #fbff48;
+        --pink: #ff70a6;
+        --blue: #3b82f6;
+        --green: #33ff57;
+        --purple: #a855f7;
+        --orange: #ff9f1c;
+        --red: #ff2a2a;
+        --paper: #fffdf5;
+        --ink: #121212;
+        --hard: 4px 4px 0 0 #000;
+        --hard-lg: 8px 8px 0 0 #000;
+        --hard-xl: 12px 12px 0 0 #000;
+        --display:
+          "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 6rem;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        font-family: var(--display);
+        font-weight: 500;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          radial-gradient(#000 1px, transparent 1px),
+          linear-gradient(to right, #e5e5e5 1px, transparent 1px),
+          linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+        background-size:
+          40px 40px,
+          100px 100px,
+          100px 100px;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      @media (min-width: 1024px) {
+        body {
+          cursor: none;
+        }
+      }
+
+      ::selection {
+        background: var(--ink);
+        color: var(--yellow);
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 700;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+      }
+
+      /* ── PRIMITIVES ──────────────────────────────────────────── */
+      .wrap {
+        max-width: 1200px;
+        margin-inline: auto;
+        padding-inline: 1rem;
+      }
+
+      .mono {
+        font-family: var(--mono);
+      }
+
+      .box {
+        border: 4px solid #000;
+        background: #fff;
+        box-shadow: var(--hard);
+      }
+
+      .tag {
+        display: inline-block;
+        border: 2px solid #000;
+        padding: 0.15rem 0.5rem;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border: 3px solid #000;
+        padding: 1rem 2rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        box-shadow: var(--hard);
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s,
+          background-color 0.12s,
+          color 0.12s;
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        transform: translate(4px, 4px);
+        box-shadow: none;
+      }
+
+      .btn-dark {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .btn-dark:hover,
+      .btn-dark:focus-visible {
+        background: var(--green);
+        color: #000;
+      }
+
+      .btn-light {
+        background: var(--paper);
+        color: #000;
+      }
+
+      .btn-light:hover,
+      .btn-light:focus-visible {
+        background: var(--pink);
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+      }
+
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 100;
+        background: var(--yellow);
+        border: 3px solid #000;
+        padding: 0.75rem 1.25rem;
+        font-weight: 700;
+      }
+
+      .skip:focus {
+        left: 1rem;
+        top: 1rem;
+      }
+
+      /* ── CURSOR + PROGRESS ───────────────────────────────────── */
+      /* No mix-blend-mode: it computed to near-invisible over the dark
+           sections. A white core + black ring reads on any background. */
+      #cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #000;
+        box-shadow: 0 0 0 1px #fff;
+        pointer-events: none;
+        display: none;
+        transition:
+          width 0.2s,
+          height 0.2s,
+          background-color 0.2s;
+      }
+
+      #cursor.on {
+        width: 56px;
+        height: 56px;
+        background: var(--yellow);
+      }
+
+      @media (min-width: 1024px) and (pointer: fine) {
+        #cursor {
+          display: block;
+        }
+      }
+
+      #progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 8px;
+        width: 0;
+        background: var(--green);
+        border-bottom: 2px solid #000;
+        z-index: 60;
+      }
+
+      /* ── NAV ─────────────────────────────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 50;
+        padding: 1rem;
+        pointer-events: none;
+      }
+
+      .nav-inner {
+        max-width: 1200px;
+        margin-inline: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        pointer-events: auto;
+      }
+
+      .logo {
+        background: var(--paper);
+        border: 2px solid #000;
+        box-shadow: var(--hard);
+        padding: 0.25rem 1rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s,
+          background-color 0.12s;
+      }
+
+      .logo:hover {
+        background: var(--yellow);
+        transform: translate(4px, 4px);
+        box-shadow: none;
+      }
+
+      .nav-links {
+        display: none;
+        gap: 0.5rem;
+        background: #fff;
+        border: 2px solid #000;
+        box-shadow: var(--hard);
+        padding: 0.5rem;
+      }
+
+      @media (min-width: 900px) {
+        .nav-links {
+          display: flex;
+        }
+      }
+
+      .nav-links a {
+        padding: 0.25rem 0.75rem;
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.8rem;
+      }
+
+      .nav-links a:hover {
+        background: #000;
+        color: #fff;
+      }
+
+      .nav-links a.cta {
+        background: var(--yellow);
+        border: 1px solid #000;
+      }
+
+      .nav-links a.cta:hover {
+        background: var(--pink);
+        color: #000;
+      }
+
+      /* ── HERO ────────────────────────────────────────────────── */
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 6rem 1rem 3rem;
+        border-bottom: 4px solid #000;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero .deco {
+        position: absolute;
+        border: 4px solid #000;
+        box-shadow: var(--hard);
+        display: none;
+      }
+
+      @media (min-width: 1024px) {
+        .hero .deco {
+          display: block;
+        }
+      }
+
+      .deco-1 {
+        top: 30%;
+        left: 8%;
+        width: 64px;
+        height: 64px;
+        background: var(--blue);
+        transform: rotate(12deg);
+      }
+
+      .deco-2 {
+        bottom: 28%;
+        right: 8%;
+        width: 96px;
+        height: 96px;
+        background: var(--pink);
+        border-radius: 50%;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--paper);
+        border: 2px solid #000;
+        box-shadow: var(--hard);
+        padding: 0.25rem 1rem;
+        margin-bottom: 1.5rem;
+        transform: rotate(-2deg);
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+
+      .dot {
+        width: 0.6rem;
+        height: 0.6rem;
+        border-radius: 50%;
+        background: var(--green);
+        border: 1px solid #000;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      .hero h1 {
+        font-size: clamp(2.8rem, 11vw, 8.5rem);
+        line-height: 0.82;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero h1 .stroke {
+        color: var(--paper);
+        -webkit-text-stroke: 3px #000;
+        paint-order: stroke fill;
+      }
+
+      .hero-sub {
+        font-family: var(--mono);
+        font-size: clamp(0.95rem, 2vw, 1.25rem);
+        max-width: 44rem;
+        margin: 0 auto 2.5rem;
+        background: var(--yellow);
+        border: 2px solid #000;
+        box-shadow: var(--hard);
+        padding: 1rem;
+        transform: rotate(1deg);
+        line-height: 1.6;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      @media (min-width: 640px) {
+        .hero-cta {
+          flex-direction: row;
+        }
+      }
+
+      /* ── MARQUEE ─────────────────────────────────────────────── */
+      .marquee {
+        overflow: hidden;
+        border-block: 4px solid #000;
+        background: var(--blue);
+        color: #fff;
+        padding: 0.75rem 0;
+        position: relative;
+        z-index: 20;
+      }
+
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: slide 38s linear infinite;
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 1.25rem;
+        white-space: nowrap;
+      }
+
+      .marquee:hover .marquee-track {
+        animation-play-state: paused;
+      }
+
+      @keyframes slide {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ── SECTION HEADS ───────────────────────────────────────── */
+      section {
+        scroll-margin-top: 6rem;
+      }
+
+      .head {
+        font-size: clamp(2.2rem, 7vw, 5rem);
+        margin-bottom: 3rem;
+      }
+
+      .head .accent {
+        color: var(--red);
+      }
+
+      /* ── ABOUT ───────────────────────────────────────────────── */
+      #about {
+        padding: 6rem 0;
+      }
+
+      .about-grid {
+        display: grid;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      @media (min-width: 900px) {
+        .about-grid {
+          grid-template-columns: 1fr 2fr;
+        }
+      }
+
+      .portrait {
+        position: relative;
+        aspect-ratio: 1;
+        border: 4px solid #000;
+        box-shadow: var(--hard-lg);
+        background: var(--ink);
+        overflow: hidden;
+      }
+
+      .portrait img {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(1);
+        transition: filter 0.5s;
+      }
+
+      .portrait:hover img {
+        filter: grayscale(0);
+      }
+
+      .portrait figcaption {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        font-weight: 700;
+        line-height: 1.8;
+        padding: 1rem;
+        background: repeating-linear-gradient(
+          45deg,
+          #000,
+          #000 12px,
+          #1c1c1c 12px,
+          #1c1c1c 24px
+        );
+        color: var(--green);
+      }
+
+      .portrait .label {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        z-index: 2;
+        background: var(--red);
+        color: #fff;
+        border: 1px solid #000;
+        padding: 0 0.4rem;
+        font-family: var(--mono);
+        font-size: 0.65rem;
+      }
+
+      .about-body p {
+        font-family: var(--mono);
+        line-height: 1.75;
+        margin-bottom: 1.25rem;
+      }
+
+      .about-body .lead {
+        font-size: 1.15rem;
+      }
+
+      .mark {
+        background: var(--yellow);
+        border: 1px solid #000;
+        padding: 0 0.25rem;
+      }
+
+      .quote {
+        border-left: 4px solid var(--purple);
+        padding-left: 1rem;
+        color: #444;
+      }
+
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .fact {
+        border: 3px solid #000;
+        box-shadow: var(--hard);
+        background: #fff;
+        padding: 1rem;
+      }
+
+      .fact b {
+        display: block;
+        font-size: 1.9rem;
+        line-height: 1;
+        margin-bottom: 0.35rem;
+      }
+
+      .fact span {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #555;
+      }
+
+      /* ── DELIVER ─────────────────────────────────────────────── */
+      #deliver {
+        background: var(--ink);
+        color: var(--paper);
+        border-block: 4px solid #000;
+        padding: 5rem 0;
+      }
+
+      #deliver .head {
+        color: #fff;
+      }
+
+      #deliver .head .accent {
+        color: var(--green);
+      }
+
+      #deliver .head {
+        margin-bottom: 1.5rem;
+      }
+
+      .deliver-intro {
+        font-family: var(--mono);
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #b4b4b4;
+        max-width: 46rem;
+        margin-bottom: 3rem;
+        border-left: 4px solid var(--green);
+        padding-left: 1rem;
+      }
+
+      .deliver-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .card-dark {
+        border: 3px solid rgba(255, 255, 255, 0.18);
+        background: #0a0a0a;
+        padding: 1.75rem;
+        position: relative;
+        transition:
+          border-color 0.3s,
+          transform 0.3s;
+      }
+
+      .card-dark:hover {
+        border-color: var(--green);
+        transform: translateY(-6px);
+      }
+
+      .card-dark::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--green);
+      }
+
+      .card-dark:nth-child(2)::before {
+        background: var(--pink);
+      }
+
+      .card-dark:nth-child(3)::before {
+        background: var(--blue);
+      }
+
+      .card-dark:nth-child(4)::before {
+        background: var(--orange);
+      }
+
+      .card-dark:nth-child(5)::before {
+        background: var(--purple);
+      }
+
+      .card-dark:nth-child(6)::before {
+        background: var(--yellow);
+      }
+
+      .card-dark .num {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: #777;
+        letter-spacing: 0.2em;
+      }
+
+      .card-dark h3 {
+        font-size: 1.5rem;
+        margin: 0.75rem 0;
+      }
+
+      .card-dark p {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        line-height: 1.7;
+        color: #b4b4b4;
+      }
+
+      /* ── STACK ───────────────────────────────────────────────── */
+      #stack {
+        padding: 6rem 0;
+        background: #fff;
+        border-block: 4px solid #000;
+      }
+
+      .stack-group {
+        margin-bottom: 2.5rem;
+      }
+
+      .stack-group h3 {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 3px solid #000;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+
+      .chip {
+        border: 2px solid #000;
+        box-shadow: 3px 3px 0 0 #000;
+        background: var(--paper);
+        padding: 0.45rem 0.9rem;
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.85rem;
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s,
+          background-color 0.1s;
+      }
+
+      .chip:hover {
+        transform: translate(3px, 3px);
+        box-shadow: none;
+        background: var(--yellow);
+      }
+
+      /* ── WORK ────────────────────────────────────────────────── */
+      #work {
+        padding: 6rem 0;
+        background: var(--yellow);
+        border-bottom: 4px solid #000;
+      }
+
+      #work .head {
+        color: var(--paper);
+        -webkit-text-stroke: 3px #000;
+        paint-order: stroke fill;
+        text-shadow: 4px 4px 0 #000;
+      }
+
+      .work-grid {
+        display: grid;
+        gap: 3rem;
+      }
+
+      @media (min-width: 900px) {
+        .work-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .work-grid article:nth-child(2) {
+          margin-top: 4rem;
+        }
+      }
+
+      .work-card {
+        background: #fff;
+        border: 4px solid #000;
+        box-shadow: var(--hard);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .work-card:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: var(--hard-xl);
+      }
+
+      .shot {
+        position: relative;
+        aspect-ratio: 16/9;
+        border: 2px solid #000;
+        background: var(--ink);
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+      }
+
+      .shot img {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .shot .ph {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: grid;
+        place-content: center;
+        gap: 0.5rem;
+        text-align: center;
+        color: var(--green);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        background: repeating-linear-gradient(
+          45deg,
+          #111,
+          #111 14px,
+          #1b1b1b 14px,
+          #1b1b1b 28px
+        );
+      }
+
+      .shot .ph strong {
+        font-family: var(--display);
+        font-size: 1.4rem;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .work-card h3 {
+        font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+        margin-bottom: 0.5rem;
+      }
+
+      .role {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .work-card > p {
+        font-family: var(--mono);
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+
+      .bullets {
+        list-style: none;
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        line-height: 1.6;
+        margin-bottom: 1.25rem;
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .bullets li::before {
+        content: "▸ ";
+        color: var(--red);
+        font-weight: 700;
+      }
+
+      .chips-sm {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .work-foot {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        border-top: 2px dashed #ccc;
+        padding-top: 1rem;
+      }
+
+      .live {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.85rem;
+        border: 2px solid #000;
+        box-shadow: 3px 3px 0 0 #000;
+        background: var(--green);
+        padding: 0.5rem 0.9rem;
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s;
+      }
+
+      .live:hover {
+        transform: translate(3px, 3px);
+        box-shadow: none;
+      }
+
+      .live.muted {
+        background: #e5e5e5;
+        color: #444;
+        box-shadow: none;
+        cursor: default;
+      }
+
+      .live.muted:hover {
+        transform: none;
+      }
+
+      /* ── PROCESS ─────────────────────────────────────────────── */
+      #process {
+        padding: 6rem 0;
+      }
+
+      .timeline {
+        border-left: 4px solid #000;
+        margin-left: 1rem;
+        display: grid;
+        gap: 2.5rem;
+      }
+
+      .step {
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .step {
+          padding-left: 3.5rem;
+        }
+      }
+
+      .step .pin {
+        position: absolute;
+        left: -14px;
+        top: 1.5rem;
+        width: 24px;
+        height: 24px;
+        border: 4px solid #000;
+        background: var(--yellow);
+      }
+
+      .step:nth-child(2) .pin {
+        background: var(--pink);
+      }
+
+      .step:nth-child(3) .pin {
+        background: var(--blue);
+      }
+
+      .step:nth-child(4) .pin {
+        background: var(--green);
+      }
+
+      .step-box {
+        background: #fff;
+        border: 4px solid #000;
+        box-shadow: var(--hard);
+        padding: 1.5rem;
+        transition: box-shadow 0.2s;
+      }
+
+      .step-box:hover {
+        box-shadow: var(--hard-xl);
+      }
+
+      .step-box .kicker {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        color: #777;
+      }
+
+      .step-box h3 {
+        font-size: 1.6rem;
+        margin: 0.35rem 0 0.75rem;
+      }
+
+      .step-box p {
+        font-family: var(--mono);
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: #444;
+      }
+
+      /* ── CONTACT ─────────────────────────────────────────────── */
+      #contact {
+        padding: 6rem 0 7rem;
+      }
+
+      .contact-box {
+        position: relative;
+        background: #fff;
+        border: 4px solid #000;
+        box-shadow: var(--hard-xl);
+        padding: 2.5rem 1.5rem;
+        max-width: 1000px;
+        margin-inline: auto;
+      }
+
+      @media (min-width: 768px) {
+        .contact-box {
+          padding: 3rem;
+        }
+      }
+
+      .contact-flag {
+        position: absolute;
+        top: -2.5rem;
+        left: -0.5rem;
+        background: var(--yellow);
+        border: 4px solid #000;
+        box-shadow: var(--hard);
+        padding: 0.4rem 1.5rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        transform: rotate(-4deg);
+      }
+
+      .contact-grid {
+        display: grid;
+        gap: 2.5rem;
+      }
+
+      @media (min-width: 800px) {
+        .contact-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .contact-grid h2 {
+        font-size: clamp(2.2rem, 6vw, 3.5rem);
+        margin-bottom: 1rem;
+      }
+
+      .contact-grid .note {
+        font-family: var(--mono);
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+      }
+
+      .links {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .link-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .link-row .ico {
+        flex: none;
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-content: center;
+        background: var(--ink);
+        color: #fff;
+        border: 2px solid #000;
+      }
+
+      .link-row a,
+      .link-row span {
+        font-weight: 700;
+        font-size: 1rem;
+        word-break: break-word;
+      }
+
+      .link-row a:hover {
+        background: var(--blue);
+        color: #fff;
+      }
+
+      form {
+        display: grid;
+        gap: 1.25rem;
+        background: #fafafa;
+        border: 2px solid #000;
+        padding: 1.5rem;
+      }
+
+      .field {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .field label {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .field input,
+      .field textarea {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 1rem;
+        background: #fff;
+        border: 2px solid #000;
+        padding: 0.75rem;
+        width: 100%;
+      }
+
+      .field textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .field input:focus,
+      .field textarea:focus {
+        outline: none;
+        background: var(--yellow);
+        box-shadow: 2px 2px 0 0 #000;
+      }
+
+      form button {
+        width: 100%;
+        background: var(--blue);
+        color: #fff;
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        border: 2px solid #000;
+        box-shadow: var(--hard);
+        padding: 1rem;
+        cursor: pointer;
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s,
+          background-color 0.12s;
+      }
+
+      form button:hover {
+        background: var(--ink);
+        transform: translate(4px, 4px);
+        box-shadow: none;
+      }
+
+      .form-hint {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: #666;
+        text-align: center;
+      }
+
+      /* ── FOOTER ──────────────────────────────────────────────── */
+      footer {
+        background: #000;
+        color: #fff;
+        border-top: 8px solid var(--green);
+        padding: 4rem 0 2rem;
+        font-family: var(--mono);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .foot-grid {
+        display: grid;
+        gap: 2.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      @media (min-width: 800px) {
+        .foot-grid {
+          grid-template-columns: 2fr 1fr 1fr;
+        }
+      }
+
+      footer h2 {
+        font-family: var(--display);
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+
+      footer .blurb {
+        color: #999;
+        max-width: 26rem;
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      footer h3 {
+        font-family: var(--mono);
+        color: var(--green);
+        font-size: 0.9rem;
+        border-bottom: 1px solid #333;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      footer ul {
+        list-style: none;
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      footer ul a {
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      footer ul a:hover {
+        color: #fff;
+        text-decoration: underline;
+        text-decoration-color: var(--pink);
+        text-decoration-thickness: 2px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .socials a {
+        display: grid;
+        place-content: center;
+        width: 44px;
+        height: 44px;
+        border: 2px solid #333;
+        transition:
+          background-color 0.15s,
+          color 0.15s,
+          border-color 0.15s;
+      }
+
+      .socials a:hover {
+        background: var(--green);
+        color: #000;
+        border-color: var(--green);
+      }
+
+      .copy {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #222;
+        color: #666;
+        font-size: 0.8rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .ghost {
+        position: absolute;
+        bottom: -1rem;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 20vw;
+        line-height: 1;
+        color: #fff;
+        opacity: 0.03;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      /* ── REVEAL ──────────────────────────────────────────────── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+          transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      .reveal.on {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="progress" aria-hidden="true"></div>
+
+    <nav aria-label="Primary">
+      <div class="nav-inner">
+        <a href="#" class="logo">RAHUL.exe</a>
+        <div class="nav-links">
+          <a href="#about">/ABOUT</a>
+          <a href="#deliver">/DELIVER</a>
+          <a href="#stack">/STACK</a>
+          <a href="#work">/WORK</a>
+          <a href="#process">/PROCESS</a>
+          <a href="#contact" class="cta">HIRE ME</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <section class="hero">
+        <div class="deco deco-1" aria-hidden="true"></div>
+        <div class="deco deco-2" aria-hidden="true"></div>
+
+        <p class="status"><span class="dot"></span> AVAILABLE FOR PROJECTS</p>
+
+        <h1>
+          FULL STACK<br />
+          <span class="stroke">DEVELOPER</span>
+        </h1>
+
+        <p class="hero-sub">
+          I take ideas from “nice thought” to a working product people actually
+          use.<br />
+          <b>Go • Python • TypeScript • System Design</b>
+        </p>
+
+        <div class="hero-cta">
+          <a href="#work" class="btn btn-dark">SEE THE WORK</a>
+          <a href="#contact" class="btn btn-light">START A PROJECT</a>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span
+            >&nbsp;/// WEBSITES ///&nbsp; INTERNAL PORTALS ///&nbsp; APIS &amp;
+            BACKENDS ///&nbsp; SYSTEM DESIGN ///&nbsp; PERFORMANCE ///&nbsp;
+            SECURITY ///&nbsp;</span
+          >
+          <span
+            >&nbsp;/// WEBSITES ///&nbsp; INTERNAL PORTALS ///&nbsp; APIS &amp;
+            BACKENDS ///&nbsp; SYSTEM DESIGN ///&nbsp; PERFORMANCE ///&nbsp;
+            SECURITY ///&nbsp;</span
+          >
+        </div>
+      </div>
+
+      <section id="about" class="wrap">
+        <div class="about-grid">
+          <figure class="portrait reveal">
+            <img
+              src="assets/rahul.jpg"
+              alt="Rahul Prajapati, full stack developer"
+              width="1024"
+              height="1024"
+              fetchpriority="high"
+              onerror="this.remove()"
+            />
+            <figcaption>RAHUL.JPG<br />[ DROP PHOTO IN ASSETS ]</figcaption>
+            <span class="label">AVATAR.JPG</span>
+          </figure>
+
+          <div class="about-body reveal">
+            <h2 class="head" style="margin-bottom: 1.5rem">Who am I?</h2>
+            <p class="lead">
+              I'm Rahul — a B.Tech student specializing in Data Science who
+              builds technology that solves
+              <span class="mark">meaningful problems</span>. Programming is more
+              than writing code to me: it's a tool for building practical things
+              that improve people's lives.
+            </p>
+            <p>
+              In practice that means working across Go, Python and TypeScript
+              and taking projects end to end — architecture, backend, interface,
+              deployment. My work runs in production today, including an
+              internal management system used daily by an organisation that
+              cannot afford downtime, and a public-facing site for a
+              consultancy.
+            </p>
+            <p>
+              Beyond the technical side, I'm interested in leadership, systems
+              thinking and philosophy. Philosophy is what keeps me questioning
+              assumptions, thinking critically, and staying pointed at long-term
+              purpose rather than short-term wins. I enjoy breaking complex
+              challenges into problems I can actually solve, and I learn by
+              building, experimenting and collaborating.
+            </p>
+            <p class="quote">
+              &gt; Architecture, performance and reliability considered early —
+              not bolted on later.<br />
+              &gt; Clear trade-offs over clever code.<br />
+              &gt; The best engineers don't just build software — they solve
+              problems worth solving.
+            </p>
+
+            <div class="facts">
+              <div class="fact">
+                <b>35+</b><span>Locations running software I built</span>
+              </div>
+              <div class="fact">
+                <b>10+</b><span>Production deliveries shipped</span>
+              </div>
+              <div class="fact">
+                <b>100%</b><span>Built &amp; deployed end to end</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deliver">
+        <div class="wrap">
+          <h2 class="head">WHAT I<span class="accent">_BUILD</span></h2>
+          <p class="deliver-intro">
+            If you can describe the product, I can build the system underneath
+            it. These are the categories I work in — the same building blocks
+            sit behind most of the apps you already use every day.
+          </p>
+
+          <div class="deliver-grid">
+            <div class="card-dark reveal">
+              <p class="num">01</p>
+              <h3>Marketplaces &amp; Delivery Platforms</h3>
+              <p>
+                The machinery behind food-delivery and multi-vendor apps:
+                merchant catalogues, cart and checkout, live order state, rider
+                assignment and dispatch, real-time location tracking, ratings
+                and settlement.
+              </p>
+            </div>
+            <div class="card-dark reveal">
+              <p class="num">02</p>
+              <h3>E-commerce &amp; Payments</h3>
+              <p>
+                Storefronts that hold up on sale day — inventory, pricing,
+                promotions, payment gateway integration, the full order
+                lifecycle through fulfilment, returns and refunds.
+              </p>
+            </div>
+            <div class="card-dark reveal">
+              <p class="num">03</p>
+              <h3>On-demand &amp; Booking Systems</h3>
+              <p>
+                Ride-hailing, appointments, logistics: supply-and-demand
+                matching, availability and scheduling, live status, driver and
+                customer apps, notifications that actually arrive.
+              </p>
+            </div>
+            <div class="card-dark reveal">
+              <p class="num">04</p>
+              <h3>Internal Portals &amp; Dashboards</h3>
+              <p>
+                Systems that replace spreadsheets and paper registers:
+                role-based access, approval flows, audit trails, lifecycle
+                tracking, and the reports the people upstairs actually ask for.
+              </p>
+            </div>
+            <div class="card-dark reveal">
+              <p class="num">05</p>
+              <h3>Backends &amp; APIs</h3>
+              <p>
+                Go, Python and Node services with clean contracts and sane data
+                models. Authentication, background jobs, queues, caching where
+                it earns its keep — and boring reliability under load.
+              </p>
+            </div>
+            <div class="card-dark reveal">
+              <p class="num">06</p>
+              <h3>System Design &amp; Scale</h3>
+              <p>
+                The thinking before the code: how the data really behaves, what
+                breaks at 10x, where the bottleneck will show up first, what to
+                build now and what to leave a door open for.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="stack">
+        <div class="wrap">
+          <h2 class="head">
+            TECH<span class="accent" style="color: var(--blue)">_STACK</span>
+          </h2>
+
+          <div class="stack-group">
+            <h3>&gt;_ LANGUAGES</h3>
+            <div class="chips">
+              <span class="chip">Go</span><span class="chip">Python</span
+              ><span class="chip">TypeScript</span
+              ><span class="chip">JavaScript</span
+              ><span class="chip">Kotlin</span><span class="chip">PHP</span
+              ><span class="chip">SQL</span>
+            </div>
+          </div>
+
+          <div class="stack-group">
+            <h3>&gt;_ BACKEND &amp; APIS</h3>
+            <div class="chips">
+              <span class="chip">Gin</span><span class="chip">FastAPI</span
+              ><span class="chip">Django</span><span class="chip">Flask</span
+              ><span class="chip">Node.js</span><span class="chip">Express</span
+              ><span class="chip">JWT Auth</span><span class="chip">REST</span
+              ><span class="chip">Telegram API</span>
+            </div>
+          </div>
+
+          <div class="stack-group">
+            <h3>&gt;_ FRONTEND</h3>
+            <div class="chips">
+              <span class="chip">Next.js</span><span class="chip">React</span
+              ><span class="chip">React Native</span
+              ><span class="chip">Tailwind</span><span class="chip">HTML5</span
+              ><span class="chip">CSS3</span><span class="chip">Android</span>
+            </div>
+          </div>
+
+          <div class="stack-group">
+            <h3>&gt;_ DATA</h3>
+            <div class="chips">
+              <span class="chip">PostgreSQL</span><span class="chip">MySQL</span
+              ><span class="chip">MongoDB</span><span class="chip">Redis</span
+              ><span class="chip">SQLite</span><span class="chip">Prisma</span
+              ><span class="chip">Supabase</span>
+            </div>
+          </div>
+
+          <div class="stack-group">
+            <h3>&gt;_ INFRA &amp; TOOLING</h3>
+            <div class="chips">
+              <span class="chip">Docker</span><span class="chip">AWS</span
+              ><span class="chip">AWS Lambda</span
+              ><span class="chip">GitHub Actions</span
+              ><span class="chip">Vercel</span
+              ><span class="chip">Nginx / Apache</span
+              ><span class="chip">Gunicorn</span><span class="chip">Git</span
+              ><span class="chip">Selenium</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="wrap">
+          <h2 class="head">SELECTED WORK</h2>
+
+          <div class="work-grid">
+            <article class="work-card reveal">
+              <div class="shot">
+                <img
+                  src="assets/learning-leaders.jpg"
+                  alt="The Learning Leaders website built by Rahul Prajapati"
+                  width="1280"
+                  height="581"
+                  loading="lazy"
+                  onerror="this.remove()"
+                />
+                <div class="ph">
+                  <strong>The Learning Leaders</strong
+                  ><span>SCREENSHOT PENDING</span>
+                </div>
+              </div>
+
+              <h3>The Learning Leaders</h3>
+              <p class="role">Freelance · Public website · Nov – Dec 2025</p>
+              <p>
+                A public-facing site for a consultancy that helps organisations
+                assess their needs for organisation development, change
+                management and leadership development.
+              </p>
+              <ul class="bullets">
+                <li>
+                  Worked with the founder to turn extensive research into an
+                  information architecture a first-time visitor can navigate.
+                </li>
+                <li>
+                  Responsive, performance-focused UI so the assessment journey
+                  doesn't lose people.
+                </li>
+                <li>
+                  Built to communicate the offering clearly and bring
+                  stakeholders into the process.
+                </li>
+              </ul>
+              <div class="chips-sm">
+                <span class="tag">Next.js</span
+                ><span class="tag">TypeScript</span
+                ><span class="tag">Tailwind</span><span class="tag">SEO</span
+                ><span class="tag">Vercel</span>
+              </div>
+              <div class="work-foot">
+                <span class="mono" style="font-size: 0.75rem; color: #666"
+                  >LIVE IN PRODUCTION</span
+                >
+                <a
+                  class="live"
+                  href="https://www.thelearningleaders.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  VISIT SITE
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17 17 7M8 7h9v9" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="work-card reveal">
+              <div class="shot">
+                <img
+                  src="assets/buxar-police.png"
+                  alt="Illustrative wireframe of the e-Malkhana evidence management portal built for Buxar District Police — interface withheld"
+                  width="1376"
+                  height="768"
+                  loading="lazy"
+                  onerror="this.remove()"
+                />
+                <div class="ph">
+                  <strong>e-Malkhana Portal</strong
+                  ><span>INTERNAL SYSTEM · SCREENSHOT PENDING</span>
+                </div>
+              </div>
+
+              <h3>Buxar District Police — e-Malkhana</h3>
+              <p class="role">Online management portal · Oct 2025 – Jan 2026</p>
+              <p>
+                A centralized digital evidence storage and tracking system for
+                the Buxar District Police. Originally a Java Swing desktop tool,
+                re-architected into a modern web platform to fix scalability and
+                usability limits.
+              </p>
+              <ul class="bullets">
+                <li>
+                  Case and evidence tracking across multiple stations: rack
+                  numbers, seizure and deposit dates, court details, IPC
+                  sections, investigating officers, full lifecycle timelines.
+                </li>
+                <li>
+                  Security as a first-class requirement — role-based access
+                  control, strict authorization flows, and detailed activity
+                  logging for traceability and accountability.
+                </li>
+                <li>
+                  Operational in 35+ police stations, with a roadmap for
+                  district- and state-level rollout.
+                </li>
+              </ul>
+              <div class="chips-sm">
+                <span class="tag">Next.js</span
+                ><span class="tag">TypeScript</span
+                ><span class="tag">PostgreSQL</span><span class="tag">RBAC</span
+                ><span class="tag">Audit Logs</span
+                ><span class="tag">System Design</span>
+              </div>
+              <div class="work-foot">
+                <span class="mono" style="font-size: 0.75rem; color: #666"
+                  >GOVERNMENT · RESTRICTED</span
+                >
+                <span class="live muted">PRIVATE PORTAL</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" class="wrap">
+        <h2 class="head" style="text-align: center">
+          HOW I<span class="accent">_BUILD</span>
+        </h2>
+
+        <div class="timeline">
+          <div class="step reveal">
+            <div class="pin"></div>
+            <div class="step-box">
+              <p class="kicker">STEP 01</p>
+              <h3>Understand the actual problem</h3>
+              <p>
+                Before any code: who uses this, what they do today, and what
+                "working" means to them. I map the real workflow first — the
+                software comes second. That is what separates a system people
+                adopt from one they route around.
+              </p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="pin"></div>
+            <div class="step-box">
+              <p class="kicker">STEP 02</p>
+              <h3>Design the system, then the screens</h3>
+              <p>
+                Data model, access rules, failure modes and the 10x question get
+                settled up front. Trade-offs get written down so nobody is
+                surprised in month three.
+              </p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="pin"></div>
+            <div class="step-box">
+              <p class="kicker">STEP 03</p>
+              <h3>Ship in usable slices</h3>
+              <p>
+                You get something real to click on early, not a six-month
+                silence. Each slice is deployed, tested against actual use, and
+                corrected before the next one starts.
+              </p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="pin"></div>
+            <div class="step-box">
+              <p class="kicker">STEP 04</p>
+              <h3>Harden and hand over</h3>
+              <p>
+                Performance, security, logging and the boring operational
+                details — then documentation and a path for whoever maintains it
+                next. Including you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="wrap">
+        <div class="contact-box reveal">
+          <div class="contact-flag">START A PROJECT</div>
+
+          <div class="contact-grid">
+            <div>
+              <h2>Let's<br />Talk<br />Code.</h2>
+              <p class="note">
+                Available for freelance projects and full-time roles. Tell me
+                what you're trying to build and I'll tell you honestly whether
+                I'm the right person for it.
+              </p>
+
+              <div class="links">
+                <div class="link-row">
+                  <span class="ico" aria-hidden="true">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="2" y="4" width="20" height="16" />
+                      <path d="m2 6 10 7 10-7" />
+                    </svg>
+                  </span>
+                  <a href="mailto:contact@roldex.me">contact@roldex.me</a>
+                </div>
+
+                <div class="link-row">
+                  <span class="ico" aria-hidden="true">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9Z"
+                      />
+                    </svg>
+                  </span>
+                  <a
+                    href="https://www.linkedin.com/in/rahulprajapati19/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >linkedin.com/in/rahulprajapati19</a
+                  >
+                </div>
+
+                <div class="link-row">
+                  <span class="ico" aria-hidden="true">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                    </svg>
+                  </span>
+                  <a
+                    href="https://www.instagram.com/roldexstark/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >@roldexstark</a
+                  >
+                </div>
+
+                <div class="link-row">
+                  <span class="ico" aria-hidden="true">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10Z"
+                      />
+                      <circle cx="12" cy="11" r="2.5" />
+                    </svg>
+                  </span>
+                  <span>India · Working remotely</span>
+                </div>
+              </div>
+            </div>
+
+            <form id="contact-form">
+              <div class="field">
+                <label for="f-name">Identity</label>
+                <input
+                  id="f-name"
+                  name="name"
+                  type="text"
+                  placeholder="NAME / COMPANY"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="f-mail">Coordinates</label>
+                <input
+                  id="f-mail"
+                  name="email"
+                  type="email"
+                  placeholder="EMAIL ADDRESS"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="f-msg">Transmission</label>
+                <textarea
+                  id="f-msg"
+                  name="message"
+                  rows="4"
+                  placeholder="WHAT ARE YOU BUILDING?"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit">TRANSMIT DATA</button>
+              <p class="form-hint">
+                Opens your mail app — no data is stored on this site.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap foot-grid">
+        <div>
+          <h2>RAHUL.</h2>
+          <p class="blurb">
+            Full stack developer. Simple, robust, understandable software —
+            backends that hold, APIs that make sense, and interfaces that get
+            out of the way.
+          </p>
+        </div>
+
+        <div>
+          <h3>SITEMAP</h3>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#deliver">What I Deliver</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>SOCIALS</h3>
+          <div class="socials">
+            <a
+              href="https://www.linkedin.com/in/rahulprajapati19/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9Z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.instagram.com/roldexstark/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+              </svg>
+            </a>
+            <a href="mailto:roldexstark@gmail.com" aria-label="Email">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="4" width="20" height="16" />
+                <path d="m2 6 10 7 10-7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <p class="copy">© 2026 RAHUL PRAJAPATI // SYSTEM_END</p>
+      <div class="ghost" aria-hidden="true">BUILD</div>
+    </footer>
+
+    <script>
+      (function () {
+        const reduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        // Scroll reveal
+        const items = document.querySelectorAll(".reveal");
+        if (reduce || !("IntersectionObserver" in window)) {
+          items.forEach((el) => el.classList.add("on"));
+        } else {
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add("on");
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.15 },
+          );
+          items.forEach((el) => io.observe(el));
+        }
+
+        // Scroll progress
+        const bar = document.getElementById("progress");
+        let ticking = false;
+        addEventListener(
+          "scroll",
+          () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+              const h = document.documentElement.scrollHeight - innerHeight;
+              bar.style.width = h > 0 ? (scrollY / h) * 100 + "%" : "0%";
+              ticking = false;
+            });
+          },
+          { passive: true },
+        );
+
+        // Custom cursor (desktop pointer only)
+        const cursor = document.getElementById("cursor");
+        if (
+          matchMedia("(min-width:1024px) and (pointer:fine)").matches &&
+          !reduce
+        ) {
+          addEventListener(
+            "mousemove",
+            (e) => {
+              cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            },
+            { passive: true },
+          );
+
+          document
+            .querySelectorAll("a, button, input, textarea, .chip, .work-card")
+            .forEach((el) => {
+              el.addEventListener("mouseenter", () =>
+                cursor.classList.add("on"),
+              );
+              el.addEventListener("mouseleave", () =>
+                cursor.classList.remove("on"),
+              );
+            });
+        }
+
+        // Contact form -> mailto (static site, no backend)
+        const form = document.getElementById("contact-form");
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const name = form.elements.name.value.trim();
+          const mail = form.elements.email.value.trim();
+          const msg = form.elements.message.value.trim();
+          const body = encodeURIComponent(`${msg}\n\n— ${name}\n${mail}`);
+          const subject = encodeURIComponent(`Project enquiry from ${name}`);
+          location.href = `mailto:roldexstark@gmail.com?subject=${subject}&body=${body}`;
+          form.innerHTML =
+            '<div style="padding:3rem 1rem;text-align:center"><h3 style="font-size:1.5rem;margin-bottom:.5rem">TRANSMISSION READY</h3><p class="mono" style="font-size:.85rem;color:#555">Your mail app should be open. If it didn\'t, write to <b>roldexstark@gmail.com</b> directly.</p></div>';
+        });
+      })();
+    </script>
+  </body>
+</html>
