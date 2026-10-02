@@ -18,6 +18,4 @@ node_modules/
 build/
 
 # SEO & Search Console
-sitemap.xml
-robots.txt
 google*.html
