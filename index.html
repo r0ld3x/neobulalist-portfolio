@@ -72,6 +72,9 @@
     <script>
       // Apply a saved theme choice before first paint; with none saved,
       // CSS follows the OS setting via prefers-color-scheme.
+      // The js class gates script-dependent styles (reveal, cursor) so the
+      // page stays fully visible and usable when scripts don't run.
+      document.documentElement.classList.add("js");
       try {
         const t = localStorage.getItem("theme");
         if (t === "light" || t === "dark")
@@ -98,21 +101,6 @@
       />
     </noscript>
 
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HZG4YXVRWQ"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HZG4YXVRWQ");
-    </script>
-
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -129,7 +117,7 @@
             "@id": "https://roldex.me/#rahul",
             "name": "Rahul Prajapati",
             "url": "https://roldex.me/",
-            "email": "roldexstark@gmail.com",
+            "email": "rahulkashyap5049@gmail.com",
             "jobTitle": "Full Stack Web & Mobile App Developer",
             "description": "Freelance full stack developer building websites, web apps, Android & iOS apps, automation scripts, scalable backends and cloud infrastructure.",
             "knowsAbout": [
@@ -187,7 +175,7 @@
               "addressCountry": "IN"
             },
             "description": "Websites, web apps, mobile apps, automation and web scraping, system design, DevOps and web security for startups and businesses.",
-            "knowsLanguage": ["English", "Hindi", "Bengali"],
+            "knowsLanguage": ["English", "Hindi"],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
               "name": "Services",
@@ -359,6 +347,10 @@
         --orange: #ff9f1c;
         --red: #ff2a2a;
         --paper: #fffdf5;
+        /* Text-safe accent shades: the bright brand pink/red fail AA as small
+           text on light surfaces; dark theme uses the brand values directly. */
+        --pink-ink: #d62a72;
+        --red-ink: #e01b1b;
         --ink: #121212;
         --bg: var(--paper);
         --surface: #fff;
@@ -395,6 +387,8 @@
           --muted-bg: #2a2a2a;
           --grid: #1f1f1f;
           --grid-dot: #333;
+          --pink-ink: var(--pink);
+          --red-ink: var(--red);
           color-scheme: dark;
         }
       }
@@ -411,6 +405,8 @@
         --muted-bg: #2a2a2a;
         --grid: #1f1f1f;
         --grid-dot: #333;
+        --pink-ink: var(--pink);
+        --red-ink: var(--red);
         color-scheme: dark;
       }
 
@@ -445,15 +441,17 @@
         overflow-x: hidden;
       }
 
-      @media (min-width: 1024px) {
-        body {
-          cursor: none;
-        }
+      /* Hide the system pointer only once the script has the custom cursor
+         tracking the mouse; otherwise mouse users would be left with none. */
+      .has-cursor body {
+        cursor: none;
       }
 
+      /* One fixed pair for both themes: pink never fills a large surface
+         here, so the highlight shows on cream, white, black and yellow. */
       ::selection {
-        background: var(--text);
-        color: var(--yellow);
+        background: var(--pink);
+        color: #000;
       }
 
       img {
@@ -498,7 +496,7 @@
         border: 2px solid var(--line);
         padding: 0.15rem 0.5rem;
         font-family: var(--mono);
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.04em;
@@ -602,10 +600,8 @@
         background: var(--yellow);
       }
 
-      @media (min-width: 1024px) and (pointer: fine) {
-        #cursor {
-          display: block;
-        }
+      .has-cursor #cursor {
+        display: block;
       }
 
       #progress {
@@ -744,6 +740,83 @@
         color: #000;
       }
 
+      /* Phone menu: the same links, opened as a full-width panel under the
+         header. Script-only; without JS the page reads by scrolling. */
+      .menu-toggle {
+        display: none;
+        place-content: center;
+        width: 44px;
+        height: 44px;
+        background: var(--bg);
+        color: var(--text);
+        border: 2px solid var(--line);
+        box-shadow: var(--hard);
+        cursor: pointer;
+      }
+
+      .menu-toggle .cross,
+      .menu-toggle[aria-expanded="true"] .bars {
+        display: none;
+      }
+
+      .menu-toggle[aria-expanded="true"] .cross {
+        display: inline;
+      }
+
+      .menu-toggle[aria-expanded="true"] {
+        background: var(--yellow);
+        color: #000;
+      }
+
+      @media (max-width: 899px) {
+        nav {
+          padding: 0.75rem;
+        }
+
+        .nav-inner {
+          position: relative;
+        }
+
+        .nav-right {
+          gap: 0.5rem;
+        }
+
+        .logo {
+          font-size: clamp(1rem, 4.6vw, 1.4rem);
+          padding-inline: 0.75rem;
+        }
+
+        .js .menu-toggle {
+          display: grid;
+        }
+
+        .nav-links.open {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          position: absolute;
+          top: calc(100% + 0.75rem);
+          left: 0;
+          right: 0;
+          padding: 0;
+          box-shadow: var(--hard-lg);
+        }
+
+        .nav-links.open a {
+          display: flex;
+          align-items: center;
+          min-height: 52px;
+          padding: 0.5rem 1.25rem;
+          font-size: 1rem;
+          border-bottom: 2px solid var(--line);
+        }
+
+        .nav-links.open a.cta {
+          border: 0;
+          justify-content: center;
+        }
+      }
+
       /* ── HERO ────────────────────────────────────────────────── */
       .hero {
         min-height: 100svh;
@@ -810,18 +883,6 @@
         border-radius: 50%;
         background: var(--green);
         border: 1px solid var(--line);
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-        }
-
-        50% {
-          opacity: 0.35;
-        }
       }
 
       .hero h1 {
@@ -884,8 +945,52 @@
         white-space: nowrap;
       }
 
-      .marquee:hover .marquee-track {
+      .marquee:hover .marquee-track,
+      .marquee.paused .marquee-track {
         animation-play-state: paused;
+      }
+
+      /* Pause control: hover alone can't stop the loop on touch or keyboard
+         (WCAG 2.2.2). Only shown when the script and the motion are live. */
+      .marquee-toggle {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 3.25rem;
+        place-content: center;
+        background: #000;
+        color: #fff;
+        border: 0;
+        border-left: 4px solid #000;
+        cursor: pointer;
+        transition:
+          background-color 0.12s,
+          color 0.12s;
+      }
+
+      .js .marquee-toggle {
+        display: grid;
+      }
+
+      .marquee-toggle:hover {
+        background: var(--yellow);
+        color: #000;
+      }
+
+      .marquee-toggle:focus-visible {
+        outline: 3px solid var(--yellow);
+        outline-offset: -7px;
+      }
+
+      .marquee-toggle .play,
+      .marquee.paused .marquee-toggle .pause {
+        display: none;
+      }
+
+      .marquee.paused .marquee-toggle .play {
+        display: block;
       }
 
       @keyframes slide {
@@ -975,7 +1080,7 @@
 
       .fact span {
         font-family: var(--mono);
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         color: var(--muted);
@@ -1014,7 +1119,7 @@
 
       .deliver-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
         gap: 1.5rem;
       }
 
@@ -1077,8 +1182,8 @@
 
       .card-dark .num {
         font-family: var(--mono);
-        font-size: 0.7rem;
-        color: #777;
+        font-size: 0.8rem;
+        color: #8a8a8a;
         letter-spacing: 0.2em;
       }
 
@@ -1169,6 +1274,26 @@
         .work-grid article:nth-child(2) {
           margin-top: 4rem;
         }
+
+        /* A third project runs the full width; its story and its build
+           list sit side by side so neither stretches past a readable line. */
+        .work-card.wide {
+          grid-column: 1 / -1;
+        }
+
+        .wide-cols {
+          display: grid;
+          grid-template-columns: 5fr 6fr;
+          gap: 0 2.5rem;
+          align-items: start;
+        }
+      }
+
+      .wide-intro > p:not([class]) {
+        font-family: var(--mono);
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 1rem;
       }
 
       .work-card {
@@ -1196,7 +1321,7 @@
 
       .role {
         font-family: var(--mono);
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         color: var(--faint);
@@ -1255,6 +1380,7 @@
         background: var(--green);
         color: #000;
         padding: 0.5rem 0.9rem;
+        white-space: nowrap;
         transition:
           transform 0.1s,
           box-shadow 0.1s;
@@ -1335,7 +1461,7 @@
 
       .step-box .kicker {
         font-family: var(--mono);
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         letter-spacing: 0.2em;
         color: var(--faint);
       }
@@ -1441,9 +1567,16 @@
         word-break: break-word;
       }
 
+      .link-row a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 48px;
+        padding-inline: 0.25rem;
+      }
+
       .link-row a:hover {
-        background: var(--blue);
-        color: #fff;
+        background: var(--yellow);
+        color: #000;
       }
 
       form {
@@ -1462,7 +1595,7 @@
       .field label {
         font-family: var(--mono);
         font-weight: 700;
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.08em;
       }
@@ -1518,9 +1651,45 @@
 
       .form-hint {
         font-family: var(--mono);
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         color: var(--faint);
         text-align: center;
+      }
+
+      /* Sent state keeps the form and its text in place, so nothing typed is
+         lost when no mail app opens. */
+      .form-status {
+        border: 3px solid var(--line);
+        border-top-width: 8px;
+        border-top-color: var(--green);
+        background: var(--surface);
+        padding: 1.25rem;
+      }
+
+      .form-status:focus {
+        outline: none;
+      }
+
+      .form-status h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .form-status p {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--muted);
+        margin-bottom: 1rem;
+        overflow-wrap: anywhere;
+      }
+
+      form .copy-btn {
+        width: auto;
+        font-size: 0.9rem;
+        padding: 0.65rem 1.1rem;
+        background: var(--text);
+        color: var(--bg);
       }
 
       /* ── FOOTER ──────────────────────────────────────────────── */
@@ -1572,10 +1741,12 @@
       footer ul {
         list-style: none;
         display: grid;
-        gap: 0.5rem;
       }
 
       footer ul a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         color: #999;
         font-size: 0.9rem;
       }
@@ -1615,7 +1786,7 @@
         margin-top: 3rem;
         padding-top: 1.5rem;
         border-top: 1px solid #222;
-        color: #666;
+        color: #8a8a8a;
         font-size: 0.8rem;
         position: relative;
         z-index: 1;
@@ -1654,7 +1825,7 @@
         margin-top: 1rem;
         padding-top: 0.75rem;
         border-top: 1px dashed #333;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         color: var(--green);
       }
 
@@ -1664,10 +1835,10 @@
 
       .work-card .kind {
         font-family: var(--mono);
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         font-weight: 700;
         letter-spacing: 0.15em;
-        color: var(--red);
+        color: var(--red-ink);
         margin-bottom: 0.75rem;
       }
 
@@ -1785,7 +1956,7 @@
       }
 
       /* ── REVEAL ──────────────────────────────────────────────── */
-      .reveal {
+      .js .reveal {
         opacity: 0;
         transform: translateY(32px);
         transition:
@@ -1793,7 +1964,7 @@
           transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
       }
 
-      .reveal.on {
+      .js .reveal.on {
         opacity: 1;
         transform: none;
       }
@@ -1805,9 +1976,13 @@
           scroll-behavior: auto !important;
         }
 
-        .reveal {
+        .js .reveal {
           opacity: 1;
           transform: none;
+        }
+
+        .js .marquee-toggle {
+          display: none;
         }
       }
     </style>
@@ -1822,7 +1997,7 @@
       <div class="nav-inner">
         <a href="#" class="logo">RAHUL PRAJAPATI</a>
         <div class="nav-right">
-          <div class="nav-links">
+          <div class="nav-links" id="nav-links">
             <a href="#services">/SERVICES</a>
             <a href="#work">/WORK</a>
             <a href="#about">/WHY ME</a>
@@ -1830,6 +2005,27 @@
             <a href="#faq">/FAQ</a>
             <a href="#contact" class="cta">GET A QUOTE</a>
           </div>
+          <button
+            type="button"
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-expanded="false"
+            aria-controls="nav-links"
+            aria-label="Menu"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              aria-hidden="true"
+            >
+              <path class="bars" d="M3 6h18M3 12h18M3 18h18" />
+              <path class="cross" d="M5 5l14 14M19 5 5 19" />
+            </svg>
+          </button>
           <button
             type="button"
             class="theme-toggle"
@@ -1901,8 +2097,8 @@
         </ul>
       </section>
 
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
+      <div class="marquee">
+        <div class="marquee-track" aria-hidden="true">
           <span
             >&nbsp;/// WEBSITES ///&nbsp; WEB APPS ///&nbsp; ANDROID &amp; iOS
             APPS ///&nbsp; AUTOMATION ///&nbsp; WEB SCRAPING ///&nbsp; SYSTEM
@@ -1916,12 +2112,39 @@
             ///&nbsp;</span
           >
         </div>
+        <button
+          type="button"
+          class="marquee-toggle"
+          id="marquee-toggle"
+          aria-label="Pause scrolling text"
+        >
+          <svg
+            class="pause"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+          </svg>
+          <svg
+            class="play"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M7 4v16l13-8z" />
+          </svg>
+        </button>
       </div>
 
       <section id="services">
         <div class="wrap">
           <h2 class="head">
-            WHAT I CAN<span class="accent">_BUILD FOR YOU</span>
+            WHAT I CAN<wbr /><span class="accent">_BUILD FOR YOU</span>
           </h2>
           <p class="deliver-intro">
             Tell me what your business needs. I'll handle the whole thing:
@@ -2073,7 +2296,7 @@
                 ><span class="tag">Vercel</span>
               </div>
               <div class="work-foot">
-                <span class="mono" style="font-size: 0.75rem; color: var(--faint)"
+                <span class="mono" style="font-size: 0.8rem; color: var(--faint)"
                   >LIVE IN PRODUCTION</span
                 >
                 <a
@@ -2130,10 +2353,87 @@
                 ><span class="tag">Audit Logs</span>
               </div>
               <div class="work-foot">
-                <span class="mono" style="font-size: 0.75rem; color: var(--faint)"
+                <span class="mono" style="font-size: 0.8rem; color: var(--faint)"
                   >GOVERNMENT · RESTRICTED</span
                 >
                 <span class="live muted">PRIVATE PORTAL</span>
+              </div>
+            </article>
+
+            <article class="work-card wide reveal">
+              <div class="wide-cols">
+                <div class="wide-intro">
+                  <p class="kind">EVENT TICKETING &amp; CHECK-IN</p>
+                  <h3>
+                    <span style="text-transform: none">TED<span style="text-transform: lowercase">x</span></span>ITM Gwalior — Ticketing &amp; Check-in
+                  </h3>
+                  <p class="role">Event · ITM Gwalior · 2026</p>
+                  <p>
+                    <b>The challenge:</b> dignitaries, VIPs and students all
+                    arriving through one entrance on event day, and everyone
+                    needed to get in fast. I built the whole ticketing and
+                    check-in system for it.
+                  </p>
+                </div>
+                <div>
+                  <ul class="bullets">
+                    <li>
+                      Built a live seat map of the auditorium: every seat is
+                      linked to a guest and turns green the moment they walk in.
+                    </li>
+                    <li>
+                      Gave every guest a personal ticket link, an animated pass
+                      that flips to show their check-in QR. It works on any
+                      phone, with no app to install.
+                    </li>
+                    <li>
+                      Designed the door flow: volunteers scan the QR, see who
+                      the ticket belongs to and tap Claim. A claimed ticket is
+                      blurred and stamped ADMITTED, so screenshots and forwarded
+                      links don't get in twice.
+                    </li>
+                    <li>
+                      Added bulk import from the registration sheets, with seats
+                      assigned by section, and cleaned up the messy real data
+                      along the way.
+                    </li>
+                    <li><b>Every guest at the event checked in through it.</b></li>
+                  </ul>
+                  <div class="chips-sm">
+                    <span class="tag">Next.js</span
+                    ><span class="tag">TypeScript</span
+                    ><span class="tag">Prisma</span
+                    ><span class="tag">PostgreSQL</span
+                    ><span class="tag">Supabase</span
+                    ><span class="tag">Tailwind</span
+                    ><span class="tag">Framer Motion</span
+                    ><span class="tag">Vercel</span>
+                  </div>
+                </div>
+              </div>
+              <div class="work-foot">
+                <span class="mono" style="font-size: 0.8rem; color: var(--faint)"
+                  >USED LIVE ON EVENT DAY</span
+                >
+                <a
+                  class="live"
+                  href="https://tedx.itmgoi.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  VISIT SITE
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17 17 7M8 7h9v9" />
+                  </svg>
+                </a>
               </div>
             </article>
           </div>
@@ -2219,7 +2519,7 @@
       <section id="stack">
         <div class="wrap">
           <h2 class="head">
-            SKILLS &amp;<span class="accent" style="color: var(--blue)"
+            SKILLS &amp;<wbr /><span class="accent" style="color: var(--blue)"
               >_TECH STACK</span
             >
           </h2>
@@ -2347,7 +2647,7 @@
 
       <section id="process" class="wrap">
         <h2 class="head" style="text-align: center">
-          HOW WE<span class="accent">_WORK</span>
+          HOW WE<wbr /><span class="accent">_WORK</span>
         </h2>
 
         <div class="timeline">
@@ -2408,7 +2708,7 @@
       <section id="faq">
         <div class="wrap">
           <h2 class="head">
-            FREQUENTLY ASKED<span class="accent" style="color: var(--pink)"
+            FREQUENTLY ASKED<wbr /><span class="accent" style="color: var(--pink-ink)"
               >_QUESTIONS</span
             >
           </h2>
@@ -2518,7 +2818,7 @@
                       <path d="m2 6 10 7 10-7" />
                     </svg>
                   </span>
-                  <a href="mailto:contact@roldex.me">contact@roldex.me</a>
+                  <a href="mailto:rahulkashyap5049@gmail.com">rahulkashyap5049@gmail.com</a>
                 </div>
 
                 <div class="link-row">
@@ -2586,13 +2886,20 @@
               </div>
             </div>
 
-            <form id="contact-form">
+            <form
+              id="contact-form"
+              action="mailto:rahulkashyap5049@gmail.com"
+              method="post"
+              enctype="text/plain"
+            >
               <div class="field">
                 <label for="f-name">Your name</label>
                 <input
                   id="f-name"
                   name="name"
                   type="text"
+                  autocomplete="name"
+                  maxlength="120"
                   placeholder="NAME / COMPANY"
                   required
                 />
@@ -2603,6 +2910,9 @@
                   id="f-mail"
                   name="email"
                   type="email"
+                  autocomplete="email"
+                  spellcheck="false"
+                  maxlength="254"
                   placeholder="YOU@COMPANY.COM"
                   required
                 />
@@ -2647,6 +2957,23 @@
               <p class="form-hint">
                 Opens your mail app. Nothing is stored on this site.
               </p>
+              <div
+                class="form-status"
+                id="form-status"
+                role="status"
+                tabindex="-1"
+                hidden
+              >
+                <h3>Almost there: hit send in your mail app</h3>
+                <p>
+                  Your message is ready in a new email. If no mail app opened,
+                  copy it and send it to
+                  <b>rahulkashyap5049@gmail.com</b> yourself.
+                </p>
+                <button type="button" class="copy-btn" id="copy-msg">
+                  COPY MESSAGE
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -2806,6 +3133,7 @@
           matchMedia("(min-width:1024px) and (pointer:fine)").matches &&
           !reduce
         ) {
+          root.classList.add("has-cursor");
           addEventListener(
             "mousemove",
             (e) => {
@@ -2828,8 +3156,55 @@
             });
         }
 
-        // Contact form -> mailto (static site, no backend)
+        // Phone menu
+        const menuBtn = document.getElementById("menu-toggle");
+        const navLinks = document.getElementById("nav-links");
+        const setMenu = (open) => {
+          navLinks.classList.toggle("open", open);
+          menuBtn.setAttribute("aria-expanded", String(open));
+          menuBtn.setAttribute("aria-label", open ? "Close menu" : "Menu");
+        };
+        menuBtn.addEventListener("click", () =>
+          setMenu(!navLinks.classList.contains("open")),
+        );
+        navLinks.addEventListener("click", (e) => {
+          if (e.target.closest("a")) setMenu(false);
+        });
+        addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && navLinks.classList.contains("open")) {
+            setMenu(false);
+            menuBtn.focus();
+          }
+        });
+        document.addEventListener("click", (e) => {
+          if (
+            navLinks.classList.contains("open") &&
+            !e.target.closest("#nav-links, #menu-toggle")
+          )
+            setMenu(false);
+        });
+        matchMedia("(min-width: 900px)").addEventListener("change", (e) => {
+          if (e.matches) setMenu(false);
+        });
+
+        // Marquee pause control
+        const marquee = document.querySelector(".marquee");
+        const marqueeBtn = document.getElementById("marquee-toggle");
+        marqueeBtn.addEventListener("click", () => {
+          const paused = marquee.classList.toggle("paused");
+          marqueeBtn.setAttribute(
+            "aria-label",
+            paused ? "Play scrolling text" : "Pause scrolling text",
+          );
+        });
+
+        // Contact form -> mailto (static site, no backend). Without JS the
+        // form's own mailto action is the fallback.
+        const MAIL = "rahulkashyap5049@gmail.com";
         const form = document.getElementById("contact-form");
+        const status = document.getElementById("form-status");
+        const copyBtn = document.getElementById("copy-msg");
+        let draft = "";
         form.addEventListener("submit", (e) => {
           e.preventDefault();
           const name = form.elements.name.value.trim();
@@ -2837,13 +3212,26 @@
           const type = form.elements.type.value;
           const budget = form.elements.budget.value.trim() || "Not specified";
           const msg = form.elements.message.value.trim();
-          const body = encodeURIComponent(
-            `Project type: ${type}\nBudget: ${budget}\n\n${msg}\n\n— ${name}\n${mail}`,
-          );
+          draft = `Project type: ${type}\nBudget: ${budget}\n\n${msg}\n\n— ${name}\n${mail}`;
           const subject = encodeURIComponent(`${type} enquiry from ${name}`);
-          location.href = `mailto:rahulkashyap5049@gmail.com?subject=${subject}&body=${body}`;
-          form.innerHTML =
-            '<div style="padding:3rem 1rem;text-align:center"><h3 style="font-size:1.5rem;margin-bottom:.5rem">THANKS — ALMOST THERE</h3><p class="mono" style="font-size:.85rem;color:var(--muted)">Your mail app should be open — just hit send. If it didn\'t open, write to <b>rahulkashyap5049@gmail.com</b> directly.</p></div>';
+          location.href = `mailto:${MAIL}?subject=${subject}&body=${encodeURIComponent(draft)}`;
+          status.hidden = false;
+          copyBtn.textContent = "COPY MESSAGE";
+          status.focus();
+        });
+
+        copyBtn.addEventListener("click", async () => {
+          const text = `To: ${MAIL}\n\n${draft}`;
+          try {
+            await navigator.clipboard.writeText(text);
+            copyBtn.textContent = "COPIED";
+          } catch (err) {
+            // Clipboard blocked: select the message so it can be copied by hand
+            const field = form.elements.message;
+            field.focus();
+            field.select();
+            copyBtn.textContent = "MESSAGE SELECTED: COPY IT";
+          }
         });
       })();
     </script>

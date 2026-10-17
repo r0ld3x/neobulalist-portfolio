@@ -88,11 +88,11 @@ Skip link, visible focus rings, semantic landmarks, labelled form fields,
 ```bash
 .
 ├── assets/
-│   ├── rahul.jpg            # portrait (square)
-│   ├── learning-leaders.png # project shot (16:9)
-│   ├── buxar-police.png     # project shot (16:9)
-│   └── og.png               # social card (1200x630)
+│   └── og.png               # social card
 ├── index.html               # the whole site
+├── PRODUCT.md               # product context for design work
+├── robots.txt
+├── sitemap.xml
 └── README.md                # you are here
 ```
 
@@ -126,7 +126,7 @@ output directory `/`.
 
 ## /// CONTACT
 
-- **MAIL**: `roldexstark@gmail.com`
+- **MAIL**: `rahulkashyap5049@gmail.com`
 - **LINKEDIN**: [rahulprajapati19](https://www.linkedin.com/in/rahulprajapati19/)
 - **INSTAGRAM**: [@roldexstark](https://www.instagram.com/roldexstark/)
 - **LOCATION**: India · working remotely

@@ -19,3 +19,8 @@ build/
 
 # SEO & Search Console
 google*.html
+
+# Local Claude Code / Impeccable settings
+.claude/settings.local.json
+.impeccable/config.local.json
+.impeccable/hook.cache.json
